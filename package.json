@@ -1,0 +1,32 @@
+{
+  "name": "seaball-converter",
+  "version": "1.0.0",
+  "description": "Converts mistakenly typed Korean (in English keyboard layout) into proper Hangul.",
+  "keywords": [
+    "hangul",
+    "korean",
+    "keyboard",
+    "typo",
+    "layout",
+    "converter",
+    "한글",
+    "영타",
+    "영문자판",
+    "seaball"
+  ],
+  "homepage": "https://github.com/daanta-real/seaball-converter#readme",
+  "bugs": {
+    "url": "https://github.com/daanta-real/seaball-converter/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daanta-real/seaball-converter.git"
+  },
+  "license": "WTFPL",
+  "author": "Daanta <daanta@naver.com> (https://github.com/daanta-real)",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  }
+}
