@@ -6,7 +6,7 @@ import * as Hangul from 'hangul-js';
 export default (input: string): string => {
 
     // 입력 없으면 그냥 냉무 회신
-    if (typeof input === 'undefined' || input === "") {
+    if (input === null || typeof input === 'undefined' || input === "") {
         return '';
     }
     
