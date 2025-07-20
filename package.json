@@ -1,6 +1,6 @@
 {
   "name": "seaball-converter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Converts mistakenly typed Korean (in English keyboard layout) into proper Hangul.",
   "keywords": [
     "hangul",
