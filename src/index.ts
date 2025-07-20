@@ -5,6 +5,12 @@ import * as Hangul from 'hangul-js';
 
 export default (input: string): string => {
 
+    // 입력 없으면 그냥 냉무 회신
+    if (typeof input === 'undefined' || input === "") {
+        return '';
+    }
+    
+    // 키맵 정의
     const engToKorMap: { [key: string]: string } = {
         q: 'ㅂ', w: 'ㅈ', e: 'ㄷ', r: 'ㄱ', t: 'ㅅ',
         y: 'ㅛ', u: 'ㅕ', i: 'ㅑ', o: 'ㅐ', p: 'ㅔ',
@@ -19,7 +25,7 @@ export default (input: string): string => {
         Z: 'ㅋ', X: 'ㅌ', C: 'ㅊ', V: 'ㅍ', B: 'ㅠ',
         N: 'ㅜ', M: 'ㅡ',
     };
-
+    
     // Step 1: 영문 -> 한글 자모 치환
     const jamos = input
         .split('')
