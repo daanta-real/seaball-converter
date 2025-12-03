@@ -1,12 +1,12 @@
-# ⚓ seaball-converter - 영타 → 한글 변환 함수 미니모듈
+# ⚓ seaball-converter - 영타 ↔ 한글 변환 함수 미니모듈
 
 ## 📌 소개
 
-- 키보드 영문 모드에서 타이핑한 오타를 올바른 한글로 바꿔주는 단일 함수 라이브러리
-- e.g.) 'dkssudgktpdy' → '안녕하세요'로 변환해줌
-- 단일 함수 구조라서 깔끔함
+- 키보드 영문 모드에서 타이핑한 오타를 올바른 한글로 바꿔주는 함수 라이브러리
+- e.g.) 'dkssudgktpdy' ↔ '안녕하세요'로 쌍방향 변환 가능
+- **✨ NEW(v1.0.4~) ✨** 한글을 영문 자판 표기로 역변환하는 기능 추가
 
-※ 이 모듈은 예전에 개발이 중단된 `hangul-js` 라이브러리를 랩핑(Wrapping)해서 반쯤 테스트용으로 만든 것임. 단일 기능에 집중해서 만들었으니 혹시 더 섬세하고 다양한 기능이 필요하면 **`es-hangul`** (https://github.com/kimyihyup/es-hangul) 라이브러리를 추천
+※ 이 모듈은 예전에 개발이 중단된 `hangul-js` 라이브러리를 랩핑(Wrapping)해서 만든 것임. 더 섬세한 기능이 필요하면 **`es-hangul`** (https://github.com/kimyihyup/es-hangul) 라이브러리를 추천
 
 ## 🛠️ 설치
 
@@ -19,11 +19,9 @@ yarn add seaball-converter
 
 ## 🚀 사용
 
-진짜 간단함 그냥 함수 하나니까 불러서 쓰면 됨 (Node.js, TypeScript 동일)
+### 영타 → 한글 (hangulify)
 
-**ES Modules 방식**
-
-대부분의 경우 이렇게 쓰면 됨
+**ES Modules 방식** - 기존 방법 유지됨
 
 ```typescript
 import seaballConverter from 'seaball-converter';
@@ -34,29 +32,70 @@ const correctedKorean = seaballConverter(wronglyTypedKorean);
 // >>> correctedKorean 결과: 안녕하세요
 ```
 
-**CommonJS 방식**
+**명시적 named import** - 권장 (새 함수와 구분하려면)
 
-package.json에 "type": "module" 설정이 없거나 좀 더 예전 Node.js 환경에서 쓴다면 이렇게 쓰면 됨
+```typescript
+import { hangulify } from 'seaball-converter';
+
+const result = hangulify('dkssudgktpdy'); // 안녕하세요
+```
+
+### 한글 → 영타 (englishify) ✨ NEW (v1.0.4~)
+
+```typescript
+import { englishify } from 'seaball-converter';
+
+const korean = '안녕하세요';
+const englishTyped = englishify(korean);
+
+// >>> englishTyped 결과: dkssudgktpdy
+```
+
+**CommonJS 방식** (Node.js 구형 환경)
 
 ```javascript
-const seaballConverter = require('seaball-converter');
+const { hangulify, englishify } = require('seaball-converter');
 
-const wronglyTypedKorean = 'dkssudgktpdy';
-const correctedKorean = seaballConverter(wronglyTypedKorean);
-
-// >>> correctedKorean 결과: 안녕하세요
+hangulify('dkssudgktpdy');  // 안녕하세요
+englishify('안녕하세요');    // dkssudgktpdy
 ```
 
 ## 📜 명세 (API)
 
-이 모듈은 딱 함수 하나만 제공함
-
 ```typescript
-seaballConverter(input: string): string
+// 영타 → 한글 변환
+hangulify(input: string): string
 - input: (필수) 영문 자판으로 잘못 입력된 한글 문자열
-- 반환값: 올바르게 변환된 한글 문자열을 돌려줌
+- 반환값: 올바르게 변환된 한글 문자열
+
+// 한글 → 영타 변환
+englishify(input: string): string
+- input: (필수) 한글 문자열
+- 반환값: 영문 자판 표기로 변환된 문자열
+
+// 기본 export (backward compatibility)
+export default hangulify
 ```
 
+## 🔄 마이그레이션 가이드
+
+**기존 코드는 그대로 동작합니다:**
+
+```typescript
+// v1.0.x (기존 방식)
+import seaballConverter from 'seaball-converter';
+seaballConverter('dkssudgktpdy'); // 계속 작동 ✅
+```
+
+**새 함수를 사용하려면:**
+
+```typescript
+// v1.0.4~ (새 방식)
+import { hangulify, englishify } from 'seaball-converter';
+
+hangulify('dkssudgktpdy');   // 안녕하세요
+englishify('안녕하세요');     // dkssudgktpdy
+```
 
 ---
 # 감사합니다
